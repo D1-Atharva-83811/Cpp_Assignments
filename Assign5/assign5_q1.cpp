@@ -12,10 +12,11 @@ using namespace std;
 
 class Date
 {
-public:
+private:
     int day;
     int month;
     int year;
+public:
     Date()
     {
         day = month = year = 0;
@@ -36,10 +37,11 @@ public:
 };
 class Person :public Date
 {
-public:
+private:
     string name;
     string address;
     Date Birthdate;
+public:
     Person()
     {
         name = "";
@@ -65,11 +67,12 @@ public:
 };
 class Employee :public Person
 {
-public:
+private:
     int id;
     float sal;
     string dep;
     Date joining;
+public:
     Employee()
     {
         id = 0;

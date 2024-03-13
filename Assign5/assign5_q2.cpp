@@ -8,11 +8,13 @@
 #include<iostream>
 using namespace std;
 
-class Product {
-public:
+class Product
+{
+private:
     int id;
     string title;
     float price;
+public:
     Product()
     {
         id = 0;
@@ -21,32 +23,42 @@ public:
     }
     virtual void accept()
     {
+        cout << "Enter Product ID: ";
+        cin >> id;
+        cout << "Enter Product Title: ";
+        cin >> title;
+        cout << "Enter Product Price: ";
+        cin >> price;
     }
     virtual void display()
+    {
+        cout << "Product ID: " << id << endl;
+        cout << "Product Name: " << title << endl;
+        cout << "Product Price: " << price << endl;
+    }
+    float getPrice()
+    {
+        return price;
+    }
+    virtual void Total(float x)
     {
     }
 };
 
 class Book :public Product
 {
-public:
+private:
     string author;
+public:
     void accept()
     {
-        cout << "Enter Book ID: ";
-        cin >> id;
-        cout << "Enter Book Title: ";
-        cin >> title;
-        cout << "Enter Book Price: ";
-        cin >> price;
+        Product::accept();
         cout << "Enter Author name: ";
         cin >> author;
     }
     void display()
     {
-        cout << "ID: " << id << endl;
-        cout << "Title: " << title << endl;
-        cout << "Price: " << price << endl;
+        Product::display();
         cout << "Author: " << author << endl;
     }
 };
@@ -54,62 +66,35 @@ public:
 
 class Tape :public Product
 {
-public:
+private:
     string artist;
+public:
     void accept()
     {
-        cout << "Enter Tape ID: ";
-        cin >> id;
-        cout << "Enter Tape Title: ";
-        cin >> title;
-        cout << "Enter Tape Price: ";
-        cin >> price;
+        Product::accept();
         cout << "Enter Artist name: ";
         cin >> artist;
     }
     void display()
     {
-        cout << "ID: " << id << endl;
-        cout << "Title: " << title << endl;
-        cout << "Price: " << price << endl;
+        Product::display();
         cout << "Artist: " << artist << endl;
     }
 };
 
 int main()
 {
-    int choice, c;
-    float total = 0;
+    int choice, i = 0;
+    float total = 0, bt = 0, tt = 0;
     Product* ptr[3] = { NULL };
-    cout << "1. Buying Books" << endl;
-    cout << "2. Buying Tapes" << endl;
-    cin >> c;
-    if (c == 1)
-    {
-        for (int i = 0;i < 3;i++)
-        {
-            ptr[i] = new Book();
-        }
-    }
-    else if (c == 2)
-    {
-        for (int i = 0;i < 3;i++)
-        {
-            ptr[i] = new Tape();
-        }
-    }
-    else
-    {
-        cout << "Invalid Input.\nTerminating Program.";
-        return -1;
-    }
 
     do {
         cout << "********************************" << endl;
         cout << "0. Exit" << endl;
-        cout << "1. Accept Details of Purchase" << endl;
-        cout << "2. Display Details of Purchase" << endl;
-        cout << "3. Display Bill" << endl;
+        cout << "1. Accept Book" << endl;
+        cout << "2. Accept Tape" << endl;
+        cout << "3. Display Details of Purchase" << endl;
+        cout << "4. Display Bill" << endl;
         cout << "********************************" << endl;
         cin >> choice;
 
@@ -119,38 +104,61 @@ int main()
             break;
 
         case 1:
-            for (int i = 0;i < 3;i++)
+            if (i < 3)
             {
+                ptr[i] = new Book();
                 ptr[i]->accept();
+                i++;
             }
+            else
+                cout << "Limit reached" << endl;
             break;
 
         case 2:
+            if (i < 3)
+            {
+                ptr[i] = new Tape();
+                ptr[i]->accept();
+                i++;
+            }
+            else
+                cout << "Limit reached" << endl;
+            break;
+
+        case 3:
             for (int i = 0;i < 3;i++)
             {
                 ptr[i]->display();
             }
             break;
 
-        case 3:
-            if (c == 1)
+        case 4:
+            for (int i = 0;i < 3;i++)
             {
-                for (int i = 0;i < 3;i++)
+                if (typeid(*ptr[i]) == typeid(Book))
                 {
-                    total += ptr[i]->price;
+                    bt += ptr[i]->getPrice();
                 }
-                total = total * 0.9;
-                cout << "Total Bill is: " << total << "Rs." << endl;
             }
-            else
+            cout << "Book total is: " << bt << endl;
+            cout << "After discount is: " << bt * 0.9 << endl;
+
+            for (int i = 0;i < 3;i++)
             {
-                for (int i = 0;i < 3;i++)
+                if (typeid(*ptr[i]) == typeid(Tape))
                 {
-                    total += ptr[i]->price;
+                    tt += ptr[i]->getPrice();
                 }
-                total = total * 0.95;
-                cout << "Total Bill is: " << total << "Rs." << endl;
             }
+            cout << "Tape total is: " << tt << endl;
+            cout << "After discout is: " << tt * 0.95 << endl;
+            cout << endl;
+            cout << "The total Bill is: " << (bt * 0.9) + (tt * 0.95) << endl;
+            break;
+
+        default:
+            cout << "Invalid choice!" << endl;
+            break;
         }
     } while (choice != 0);
 
