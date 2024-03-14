@@ -289,6 +289,7 @@ int main()
                 if (typeid(*ptr[i]) == typeid(Manager))
                 {
                     ptr[i]->display();
+                    countManager++;
                 }
             }
             cout << "There are " << countManager << " Managers." << endl;
@@ -301,6 +302,7 @@ int main()
                 if (typeid(*ptr[i]) == typeid(Salesman))
                 {
                     ptr[i]->display();
+                    countSalesman++;
                 }
             }
             cout << "There are " << countSalesman << " Salesman." << endl;
@@ -313,6 +315,7 @@ int main()
                 if (typeid(*ptr[i]) == typeid(sales_manager))
                 {
                     ptr[i]->display();
+                    countSalesManager++;
                 }
             }
             cout << "There are " << countSalesManager << " SalesManagers." << endl;
