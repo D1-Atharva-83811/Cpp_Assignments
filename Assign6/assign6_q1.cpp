@@ -190,6 +190,7 @@ public:
 int main()
 {
     int choice, count = 0;
+    int countEmployee = 0, countManager = 0, countSalesman = 0, countSalesManager = 0;
     int n;
     cout << "Enter the number of Employees: ";
     cin >> n;
@@ -209,6 +210,7 @@ int main()
         cout << "6. Display Manager" << endl;
         cout << "7. Display Salesman" << endl;
         cout << "8. Display Sales Manager" << endl;
+        cout << "9. Display All" << endl;
         cout << "============================" << endl;
         cin >> choice;
 
@@ -275,8 +277,10 @@ int main()
                 if (typeid(*ptr[i]) == typeid(Employee))
                 {
                     ptr[i]->display();
+                    countEmployee++;
                 }
             }
+            cout << "There are " << countEmployee << " Employees." << endl;
             break;
 
         case 6:
@@ -287,6 +291,8 @@ int main()
                     ptr[i]->display();
                 }
             }
+            cout << "There are " << countManager << " Managers." << endl;
+
             break;
 
         case 7:
@@ -297,6 +303,8 @@ int main()
                     ptr[i]->display();
                 }
             }
+            cout << "There are " << countSalesman << " Salesman." << endl;
+
             break;
 
         case 8:
@@ -306,6 +314,15 @@ int main()
                 {
                     ptr[i]->display();
                 }
+            }
+            cout << "There are " << countSalesManager << " SalesManagers." << endl;
+
+            break;
+
+        case 9:
+            for (int i = 0;i < count;i++)
+            {
+                ptr[i]->display();
             }
             break;
 
